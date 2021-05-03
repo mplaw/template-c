@@ -1,0 +1,25 @@
+# Configuration file for the clang-tidy tool.
+# https://clang.llvm.org/extra/clang-tidy/
+
+# Turn on many of the clang-tidy checks.
+#
+# Explanation of disabled checks
+#
+#   -bugprone-narrowing-conversions
+#    The bugprone narrowing conversions check is disabled because in C character
+#    literals are integers so `char c = 'a'` generates a warning, which is insane.
+#
+Checks: 'bugprone-*,
+         -bugprone-narrowing-conversions,
+         cert-*,
+         clang-analyzer-*,
+         clang-diagnostic-*,
+         misc-*,
+         performance-*,
+         portability-*'
+
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+
+# Use .clang-format to configure the style of the lint fixes.
+FormatStyle: file

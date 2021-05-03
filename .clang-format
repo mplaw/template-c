@@ -1,0 +1,27 @@
+---
+BasedOnStyle: Microsoft
+ColumnLimit: 100
+DerivePointerAlignment: false
+MaxEmptyLinesToKeep: 2
+PointerAlignment: Middle
+IndentCaseLabels: true
+
+BraceWrapping:
+  AfterClass:            true
+  AfterControlStatement: true
+  AfterEnum:             true
+  AfterFunction:         true
+  AfterNamespace:        true
+  AfterObjCDeclaration:  true
+  AfterStruct:           true
+  AfterUnion:            true
+  AfterExternBlock:      false
+  BeforeCatch:           true
+  BeforeElse:            true
+  IndentBraces:          false
+  SplitEmptyFunction:    false
+  SplitEmptyRecord:      false
+  SplitEmptyNamespace:   false
+BreakBeforeBraces: Custom
+
+...

@@ -1,0 +1,32 @@
+# Define custom values of CMAKE_BUILD_TYPE For the vscode-cmake-tools extension.
+buildType:
+  default: release
+  choices:
+    debug:
+      buildType: Debug
+      short: Debug
+      long: Disables optimizations and includes debug info.
+    release:
+      buildType: Release
+      short: Release
+      long: Includes optimizations but no debug info.
+    minrelsize:
+      buildType: MinRelSize
+      short: MinRelSize
+      long: Optimizes for size. No debug info.
+    relwithdebinfo:
+      buildType: RelWithDebInfo
+      short: RelWithDebInfo
+      long: Optimizes for speed but also includes debug info.
+    asan:
+      buildType: Asan
+      short: Asan
+      long: Instrument with Address Sanitizer.
+    tsan:
+      buildType: Tsan
+      short: Tsan
+      long: Instrument with Thread Sanitizer.
+    profile:
+      buildType: Profile
+      short: Profile
+      long: Optimise for speed and include information for profilers.

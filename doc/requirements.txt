@@ -1,0 +1,12 @@
+# The Python 3 packages required to build the documentation.
+#
+# The versions are fixed so that when the packages update they don't end up
+# breaking this project. But every once in a while it's worth trying to
+# upgrade these packages :)
+sphinx==3.5.3
+sphinx-rtd-theme==0.5.2
+sphinxemoji==0.1.8
+sphinx-prompt==1.4.0
+sphinxcontrib-manpage==0.6
+breathe==4.29.0
+docutils==0.16
