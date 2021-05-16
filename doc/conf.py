@@ -124,8 +124,6 @@ extensions = [
     # Breathe Configuration
     # https://breathe.readthedocs.io/en/latest/
     "breathe",
-    # Add the :linuxman: role.
-    "sphinxcontrib.manpage",
 ]
 
 if debug_docs:

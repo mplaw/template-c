@@ -7,6 +7,5 @@ sphinx==3.5.3
 sphinx-rtd-theme==0.5.2
 sphinxemoji==0.1.8
 sphinx-prompt==1.4.0
-sphinxcontrib-manpage==0.6
 breathe==4.29.0
 docutils==0.16
