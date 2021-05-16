@@ -84,7 +84,7 @@ if read_the_docs_build:
     copyright = re.search("set\(\s*PROJECT_COPYRIGHT\s+(.*)\)\n", text).group(1)
     copyright = copyright.replace("${PROJECT_AUTHORS}", author).strip("\"")
 
-    source_dir = os.path.join(".", "doc")
+    source_dir = "."
     debug_docs = False
 
     print(f"""Running under read the docs with config:
