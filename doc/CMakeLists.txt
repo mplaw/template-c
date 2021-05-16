@@ -94,7 +94,8 @@ configure_file(conf.py conf.py @ONLY)
 
 # Find all the reStructuredText files that sphinx uses.
 file(GLOB_RECURSE PROJECT_RST_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.rst)
-list(APPEND PROJECT_RST_FILES ${CMAKE_SOURCE_DIR}/readme.rst)
+list(APPEND PROJECT_RST_FILES ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
+                              ${CMAKE_SOURCE_DIR}/readme.rst)
 
 # Add a target for generating a single type of documentation.
 #
@@ -109,7 +110,7 @@ list(APPEND PROJECT_RST_FILES ${CMAKE_SOURCE_DIR}/readme.rst)
 #       is newer than the documentation's modification time.
 #
 function(docs_add_command type output)
-    set(SPHINX_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    set(SPHINX_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR})
     set(SPHINX_DST_DIR ${CMAKE_CURRENT_BINARY_DIR}/${type})
     set(SPHINX_OUTPUT ${SPHINX_DST_DIR}/${output})
 

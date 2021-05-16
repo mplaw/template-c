@@ -1,4 +1,4 @@
-.. include:: ../../readme.rst
+.. include:: ../readme.rst
 
 |:map:| User Guide
 ==================
@@ -9,12 +9,12 @@ documents how to use the core features this project provides.
 .. toctree::
     :maxdepth: 2
 
-    about
-    api
-    docs
-    test
-    license
-    genindex
+    src/about
+    src/api
+    src/docs
+    src/test
+    src/license
+    src/genindex
 
 .. warning::
 
