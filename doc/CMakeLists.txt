@@ -30,23 +30,24 @@ set(DOXYGEN_GENERATE_XML YES)
 # Put Doxygen's output in its own directory so Sphinx doesn't overwrite it.
 set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/doxygen")
 
-# https://breathe.readthedocs.io/en/latest/markups.html
-set(DOXYGEN_ALIASES
-    # For some reason leading-asterisk works but leading-slashes doesn't.
-    "rst_block=\\verbatim embed:rst:leading-asterisk"
-    "rst=\\verbatim embed:rst:inline"
-    "rst_end=\\endverbatim")
-
 # Find all the public headers and add a doxygen target that makes documentation
 # from them. Note that finding the public headers happens at configure time, so
 # adding or removing new headers won't cause the documentation to be re-built
 # unless the build is configured again.
 file(GLOB_RECURSE PROJECT_PUBLIC_HEADERS ${CMAKE_SOURCE_DIR}/src/include/*)
-doxygen_add_docs(
-    doxygen
-    ${PROJECT_PUBLIC_HEADERS}
-    USE_STAMP_FILE
-    COMMENT "Generate XML files with doxygen."
+list(JOIN PROJECT_PUBLIC_HEADERS " " DOXYGEN_INPUT)
+
+set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/doxyfile.in)
+set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/doxyfile)
+configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
+
+add_custom_command(
+    OUTPUT ${DOXYGEN_OUTPUT_DIRECTORY}/xml/index.xml
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+    MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
+    DEPENDS ${PROJECT_PUBLIC_HEADERS}
+    COMMENT "Generating XML files with doxygen."
+    VERBATIM
 )
 
 # Setup a Python virtual environment (venv) for Sphinx and breathe.
@@ -132,11 +133,12 @@ function(docs_add_command type output)
                 ${SPHINX_SRC_DIR}
                 ${SPHINX_DST_DIR}
         MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/conf.py
-        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/doxygen.stamp
+        DEPENDS ${DOXYGEN_OUTPUT_DIRECTORY}/xml/index.xml
                 requirements.stamp
                 _static/style.css
                 _static/logo.svg
                 _static/favicon.svg
+                _templates/layout.html
                 ${PROJECT_RST_FILES}
         COMMENT "Generating ${type} documentation"
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

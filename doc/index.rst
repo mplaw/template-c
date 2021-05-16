@@ -14,7 +14,6 @@ documents how to use the core features this project provides.
     src/docs
     src/test
     src/license
-    src/genindex
 
 .. warning::
 
