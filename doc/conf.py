@@ -97,7 +97,7 @@ if read_the_docs_build:
     copyright={copyright}
     """)
 
-    output_dir = os.path.abspath(os.path.join("..", "build", "doc", "doxygen"))
+    output_dir = os.path.abspath(os.path.join("..", "build", "doc", "doxygen_rtd"))
     input_dir = os.path.abspath(os.path.join("..", "src", "include"))
 
     # Get the input headers from the project.
@@ -117,6 +117,7 @@ if read_the_docs_build:
                        .replace("@CMAKE_PROJECT_VERSION@", version)       \
                        .replace("@CMAKE_PROJECT_DESCRIPTION@", description)
 
+    os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, "doxyfile"), "w") as file:
         file.write(filedata)
 
