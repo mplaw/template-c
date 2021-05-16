@@ -41,7 +41,8 @@ if read_the_docs_build:
         # TODO: Support # signs that are in strings and so are not comments.
         return line.split("#")[0].strip()
 
-    with open(os.path.join(".", "CMakeLists.txt")) as f:
+    cmake_file_path = os.path.abspath(os.path.join("..", "CMakeLists.txt"))
+    with open(cmake_file_path) as f:
         text = f.read()
 
     # The information we're searching for looks like:
@@ -59,7 +60,7 @@ if read_the_docs_build:
 
     project_block_match = re.search("project\(([.\s\n\w\"\-\#]*)\)", text)
     if not project_block_match:
-        raise RuntimeError("Failed to find project definition in CMakeLists.txt")
+        raise RuntimeError(f"Failed to find project definition in {cmake_file_path}")
 
     print(project_block_match.group(0))
 
