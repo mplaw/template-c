@@ -64,10 +64,25 @@ bool parse_uint32_t(char const * string, uint32_t * result)
     assert(result != NULL);
 
     char * end = NULL;
-    long long tmp = strtoll(string, &end, 10);
-    if (end == string || tmp < 0 || tmp > (long long )UINT_MAX)
+    unsigned long long tmp = strtoull(string, &end, 10);
+    if (end == string || tmp > (unsigned long long)UINT_MAX)
         return false;
 
     *result = (uint32_t)tmp;
+    return true;
+}
+
+
+bool parse_int32_t(char const * string, int32_t * result)
+{
+    assert(string != NULL);
+    assert(result != NULL);
+
+    char * end = NULL;
+    long long tmp = strtoll(string, &end, 10);
+    if (end == string || tmp > (long long)INT_MAX || tmp < (long long)INT_MIN)
+        return false;
+
+    *result = (int32_t)tmp;
     return true;
 }

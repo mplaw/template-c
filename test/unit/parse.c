@@ -72,11 +72,36 @@ static void test_parse_uint32_t()
 }
 
 
+static void test_parse_int32_t()
+{
+    int32_t result = 1;
+    CHECK(parse_int32_t("0", &result));
+    CHECK(result == 0);
+
+    CHECK(parse_int32_t("2147483647", &result));
+    CHECK(result == 2147483647);
+
+    CHECK(parse_int32_t("-2147483648", &result));
+    CHECK(result == -2147483648);
+
+    result = 0;
+    CHECK(parse_int32_t("-1", &result) == true);
+    CHECK(result == -1);
+
+    result = 0;
+    CHECK(parse_int32_t("2147483648", &result) == false);
+    CHECK(result == 0); // result should not have changed.
+    CHECK(parse_int32_t("-2147483649", &result) == false);
+    CHECK(result == 0);
+}
+
+
 int main()
 {
     test_parse_bool();
     test_parse_enum();
     test_parse_uint32_t();
+    test_parse_int32_t();
     success("All tests passed :-)");
     return 0;
 }

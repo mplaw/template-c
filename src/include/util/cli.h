@@ -27,6 +27,7 @@ enum cli_action
     PRINT_VERSION,  ///< Print the project's version to stdout and exit.
     PARSE_FLAG,     ///< Set a `bool` to `true` if the argument is found.
     PARSE_BOOL,     ///< Parse the value of the argument into a `bool`.
+    PARSE_INT32,    ///< Parse the value of the argument into a `int32_t`.
     PARSE_UINT32,   ///< Parse the value of the argument into a `uint32_t`.
     PARSE_STRING,   ///< Parse the value of the argument into a `char *`.
 };

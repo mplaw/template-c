@@ -24,7 +24,13 @@ bool parse_enum(char const * string, int * result, char const * enum_names[],
 
 
 /// Convert \p string to a 32-bit unsigned integer and store the result to \p result.
+/// \return `true` if the conversion succeeds and `false` otherwise.
 bool parse_uint32_t(char const * string, uint32_t * result);
+
+
+/// Convert \p string to a 32-bit signed integer and store the result to \p result.
+/// \return `true` if the conversion succeeds and `false` otherwise.
+bool parse_int32_t(char const * string, int32_t * result);
 
 
 #ifdef __cplusplus

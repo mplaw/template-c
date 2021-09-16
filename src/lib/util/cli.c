@@ -19,6 +19,8 @@ static char * cli_action_name(enum cli_action action)
             return "flag";
         case PARSE_BOOL:
             return "bool";
+        case PARSE_INT32:
+            return "int32";
         case PARSE_UINT32:
             return "uint32";
         case PARSE_STRING:
@@ -47,8 +49,10 @@ static enum cli_rc parse_arg(struct cli_arg * arg, const char * string)
             break;
         case PARSE_BOOL:
             return parse_bool(string, (bool *)arg->data) ? CLI_RC_OK : CLI_RC_INVALID_VALUE;
+        case PARSE_INT32:
+            return parse_int32_t(string, (int32_t *)arg->data) ? CLI_RC_OK : CLI_RC_INVALID_VALUE;
         case PARSE_UINT32:
-            return parse_uint32_t(string, (unsigned *)arg->data) ? CLI_RC_OK : CLI_RC_INVALID_VALUE;
+            return parse_uint32_t(string, (uint32_t *)arg->data) ? CLI_RC_OK : CLI_RC_INVALID_VALUE;
         case PARSE_STRING:
             *((char **)arg->data) = (char *)string;
             break;
@@ -156,7 +160,8 @@ void cli_parse(struct cli * cli, int argc, char * argv[])
             if (is_positional)
             {
                 // Skip this CLI member if the argument is non-positional.
-                if (arg[0] == '-')
+                // Note that negative numbers also start with a dash.
+                if (arg[0] == '-' && !('0' <= arg[1] && arg[1] <= '9'))
                     continue;
 
                 // Skip positional arguments we've already parsed.
