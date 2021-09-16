@@ -56,6 +56,11 @@ timespec.h
 
 .. doxygenfile:: timespec.h
 
+util.h
+^^^^^^
+
+.. doxygenfile:: util.h
+
 
 |:test_tube:| test
 ------------------

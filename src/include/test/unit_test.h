@@ -5,15 +5,7 @@
 #include <stdlib.h>
 
 #include "util/log.h"
-
-
-/// @cond Doxygen_Suppress
-#define STR_INNER(__EXPR__) #__EXPR__
-//! @endcond
-
-
-/// Convert \p \_\_EXPR\_\_ to a string literal.
-#define STR(__EXPR__) STR_INNER(__EXPR__)
+#include "util/util.h"
 
 
 /// Exit if \p \_\_EXPR\_\_ evaluates to `false`.
