@@ -3,6 +3,8 @@ Template-C
 
 A cookie-cutter project for writing C code.
 
+This project's documentation is hosted here `template-c.readthedocs.io`_.
+
 
 |:fast_forward:| Quick start
 ----------------------------
@@ -134,11 +136,12 @@ The currently outstanding to-do items are:
 - Make benchmarks much better.
 - Continue fleshing out string library.
 - Finish CLI: support more actions, unify terminology, make code pretty, more tests.
-- Sphinx read the docs hosting.
 - Help breathe support doxygen tag files so we can reference cppreference without embedded rst.
 - Help sphinx fix man page references so we can use them :)
 - Packaging.
 - VSCode: make sure things are configured using ``compile_commands.json``.
+- Emoji that are compatible with GitHub's reST renderer.
+- Test project & documentation on multiple platforms (doesn't look like webp images load in safari).
 
 although there are some more to-do comments scattered throughout the code.
 
@@ -160,3 +163,4 @@ Huge thank you to the authors of all the tools that this project uses.
 .. _Universal Windows Platform: https://docs.microsoft.com/en-us/windows/uwp/
 .. _ninja: https://ninja-build.org/
 .. _make: https://www.gnu.org/software/make/
+.. _template-c.readthedocs.io: https://template-c.readthedocs.io/en/latest/index.html

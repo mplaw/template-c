@@ -58,11 +58,11 @@ add_custom_command(
 if(WIN32)
     set(EXE_SUFFIX ".exe")
     set(VENV_BIN ${CMAKE_CURRENT_BINARY_DIR}/venv/Scripts)
-    set(VENV_ACTIVATE venv/Scripts/activate.bat) # assumes cmd
+    set(VENV_ACTIVATE ${CMAKE_CURRENT_BINARY_DIR}/venv/Scripts/activate.bat) # assumes cmd
 else()
     set(EXE_SUFFIX "")
     set(VENV_BIN ${CMAKE_CURRENT_BINARY_DIR}/venv/bin)
-    set(VENV_ACTIVATE venv/bin/activate.sh)
+    set(VENV_ACTIVATE ${CMAKE_CURRENT_BINARY_DIR}/venv/bin/activate.sh)
 endif()
 set(VENV_PIP ${VENV_BIN}/pip${EXE_SUFFIX})
 set(VENV_PYTHON ${VENV_BIN}/python${EXE_SUFFIX})
@@ -205,3 +205,30 @@ docs_add_all(${DOCS_OUT_TYPES})
 
 # Add a single target to generate all the documentation types.
 add_custom_target(docs ALL DEPENDS ${DOCS_ALL_TARGETS})
+
+# Build the docs like Read The Docs does.
+#
+# Read The Docs' build process is documented here:
+# https://docs.readthedocs.io/en/stable/builds.html
+# Note that the build command has been slightly modified to not pollute the source tree.
+#
+# This is essentially a test to check changes to the documentation build system
+# haven't broke anything. As such only rebuild this when the documentation build
+# system changes rather than when the documentation itself changes.
+set(RTD_DOCS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/doc/html_rtd)
+
+add_custom_command(
+    OUTPUT ${RTD_DOCS_OUTPUT_DIR}/index.html
+    COMMAND ${VENV_ACTIVATE} &&
+            ${CMAKE_COMMAND} -E env READTHEDOCS=True READTHEDOCS_PROJECT=${CMAKE_PROJECT_NAME}
+                                    READTHEDOCS_VERSION=latest READTHEDOCS_LANGUAGE=en
+            python -m sphinx -T -E -b html -D language=en . ${RTD_DOCS_OUTPUT_DIR} &&
+            ${CMAKE_COMMAND} -E echo "Manually inspect ${RTD_DOCS_OUTPUT_DIR}"
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/conf.py
+    DEPENDS requirements.stamp
+    COMMENT "Testing documentation can be built as RTD does"
+    # RTD's cwd is the location of the conf.py file.
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/doc
+)
+
+add_custom_target(docs_rtd DEPENDS ${RTD_DOCS_OUTPUT_DIR}/index.html)
