@@ -114,6 +114,11 @@ include(GNUInstallDirs)
 # inspect the files they wish to install before installing them.
 set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 
+# Tests can exit with this number to tell CTest that they should be skipped.
+# The SKIP_RETURN_CODE macro is defined during compilation and so can be used
+# in test code to avoid hard-coding the number.
+set(SKIP_RETURN_CODE 7436)
+
 add_subdirectory(src)
 
 if(BUILD_DOCS)

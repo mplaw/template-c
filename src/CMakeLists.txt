@@ -19,9 +19,10 @@ target_include_directories(util PUBLIC include)
 
 # Test library
 # Note that the target name 'test' is reserved by CTest, so here we've used `test_`
-add_library(test_ STATIC lib/test/benchmark)
+add_library(test_ STATIC lib/test/benchmark.c lib/test/unit_test.c)
 target_include_directories(test_ PUBLIC include)
 target_link_libraries(test_ PUBLIC util)
+target_compile_definitions(test_ PRIVATE SKIP_RETURN_CODE=${SKIP_RETURN_CODE})
 
 # Template library
 add_executable(template lib/template/main.c)

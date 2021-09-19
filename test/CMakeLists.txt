@@ -25,6 +25,7 @@ add_benchmarks(
 include(cmake/UnitTest.cmake)
 
 add_unit_tests(
+    unit/check_raises.c
     unit/cli.c
     unit/parse.c
     unit/string.c

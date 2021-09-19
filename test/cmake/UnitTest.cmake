@@ -1,10 +1,5 @@
 include(${CMAKE_SOURCE_DIR}/test/cmake/TestProperties.cmake)
 
-# Tests can exit with this number to tell CTest that they should be skipped.
-# The SKIP_RETURN_CODE macro is defined during compilation and so can be used
-# in test code to avoid hard-coding the number.
-set(SKIP_RETURN_CODE 7436)
-
 # Add a unit test to CTest.
 #
 # Required arguments:
