@@ -53,8 +53,11 @@ add_custom_command(
 # Setup a Python virtual environment (venv) for Sphinx and breathe.
 #
 # The venv is installed as part of the build so we can't look-up the paths
-# to it at configure time and instead have to predicate the locations of
-# the venv binaries.
+# to it at configure time and instead have to predict the locations of the
+# venv binaries. The name of the pip binary is particularly unpredictable
+# as it depends on the version of Python (some versions of Python don't
+# also create the "pip" symlink), so refer to access pip we activate the
+# venv and then use "python -m pip".
 if(WIN32)
     set(EXE_SUFFIX ".exe")
     set(VENV_BIN ${CMAKE_CURRENT_BINARY_DIR}/venv/Scripts)
@@ -64,13 +67,12 @@ else()
     set(VENV_BIN ${CMAKE_CURRENT_BINARY_DIR}/venv/bin)
     set(VENV_ACTIVATE ${CMAKE_CURRENT_BINARY_DIR}/venv/bin/activate.sh)
 endif()
-set(VENV_PIP ${VENV_BIN}/pip3${EXE_SUFFIX})
 set(VENV_PYTHON ${VENV_BIN}/python${EXE_SUFFIX})
 set(SPHINX_EXECUTABLE ${VENV_BIN}/sphinx-build)
 
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 add_custom_command(
-    OUTPUT ${VENV_PYTHON} ${VENV_PIP}
+    OUTPUT ${VENV_PYTHON}
     COMMAND Python3::Interpreter -m venv venv
     COMMENT "Creating a Python venv for Sphinx and breathe"
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -79,14 +81,15 @@ add_custom_command(
 # Install the Python packages required for the documentation to the venv.
 add_custom_command(
     OUTPUT requirements.stamp
-    COMMAND ${VENV_PIP} install --upgrade -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
+    COMMAND ${VENV_ACTIVATE}
+    COMMAND python -m pip install --upgrade -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
     COMMAND ${CMAKE_COMMAND} -E touch requirements.stamp
     COMMENT "Installing Python packages to venv"
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
-    DEPENDS ${VENV_PIP}
+    DEPENDS ${VENV_PYTHON}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
-add_custom_target(doc_venv DEPENDS ${VENV_PIP} requirements.stamp)
+add_custom_target(doc_venv DEPENDS ${VENV_PYTHON} requirements.stamp)
 
 # Populate conf.py with project information (e.g. name, version, etc...)
 set(SPHINX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
