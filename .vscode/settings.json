@@ -21,4 +21,24 @@
         "**/build": true,
         "**/tmp": true
     },
+    "cSpell.words": [
+        "argn",
+        "cmake",
+        "color",
+        "dir",
+        "DOXYFILE",
+        "endforeach",
+        "endfunction",
+        "exes",
+        "idiv",
+        "kwarg",
+        "kwargs",
+        "llvm",
+        "notfound",
+        "profile",
+        "profraw",
+        "strequal",
+        "timespec",
+        "venv"
+    ],
 }
