@@ -64,7 +64,7 @@ else()
     set(VENV_BIN ${CMAKE_CURRENT_BINARY_DIR}/venv/bin)
     set(VENV_ACTIVATE ${CMAKE_CURRENT_BINARY_DIR}/venv/bin/activate.sh)
 endif()
-set(VENV_PIP ${VENV_BIN}/pip${EXE_SUFFIX})
+set(VENV_PIP ${VENV_BIN}/pip3${EXE_SUFFIX})
 set(VENV_PYTHON ${VENV_BIN}/python${EXE_SUFFIX})
 set(SPHINX_EXECUTABLE ${VENV_BIN}/sphinx-build)
 
